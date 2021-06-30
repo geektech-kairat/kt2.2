@@ -11,6 +11,8 @@ import com.example.kt.models.Image
 class RecyclerViewMain(private val list: List<Image>) :
     RecyclerView.Adapter<RecyclerViewMain.ViewHolderMain>() {
 
+    private var _list: List<Image> = list
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderMain {
         return ViewHolderMain(
@@ -24,12 +26,20 @@ class RecyclerViewMain(private val list: List<Image>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolderMain, position: Int) {
-        holder.onBind(list[position])
+        holder.onBind(_list[position])
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return _list.size
     }
+
+    fun setFilter(newList: List<Image>){
+        this._list = newList
+        notifyDataSetChanged()
+    }
+
+
+
 
     class ViewHolderMain(private val binding: ItemRecyclerMainBinding) :
         RecyclerView.ViewHolder(binding.root) {
